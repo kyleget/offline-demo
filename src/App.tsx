@@ -1,16 +1,24 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { Container, VStack } from "@chakra-ui/react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Center, Container, Spinner, VStack } from "@chakra-ui/react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SignInScreen from './components/SignInScreen';
+import SignInScreen from "./components/SignInScreen";
 import Message from "./components/Message";
 
 const App = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, isLoading, isAuthenticated } = useAuth0();
+
+  if (isLoading) {
+    return (
+      <Center>
+        <Spinner colorScheme="blue" thickness="3px" size="xl" mt={36} />
+      </Center>
+    );
+  }
 
   if (!isAuthenticated) {
-    return <SignInScreen />
+    return <SignInScreen />;
   }
 
   return (
