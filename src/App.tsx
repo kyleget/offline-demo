@@ -1,39 +1,72 @@
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
+  Container,
   VStack,
-  Code,
-  Grid,
   theme,
-} from '@chakra-ui/react'
-import ColorModeSwitcher from './components/ColorModeSwitcher'
-import { Logo } from './components/Logo'
+} from "@chakra-ui/react";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Message from "./components/Message";
 
 const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+    <Container maxWidth="container.md">
+      <Header />
+      <VStack spacing={3} align="stretch" paddingTop={20} paddingBottom={36}>
+        <Message
+          message="This is a test message."
+          date={new Date()}
+          user={{
+            firstName: "Kyle",
+            lastName: "Getrost",
+          }}
+        />
+        <Message
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim iaculis vehicula. Curabitur ante tortor."
+          date={new Date()}
+          user={{
+            firstName: "Kyle",
+            lastName: "Getrost",
+          }}
+        />
+        <Message
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non turpis ac sapien eleifend cursus. In et enim et diam tincidunt dignissim venenatis ut ipsum. Quisque faucibus ligula bibendum magna commodo varius. Nullam odio arcu."
+          date={new Date()}
+          user={{
+            firstName: "Dave",
+            lastName: "Johnson",
+          }}
+        />
+        <Message
+          message="This is a test message."
+          date={new Date()}
+          user={{
+            firstName: "Kyle",
+            lastName: "Getrost",
+          }}
+          pending
+        />
+        <Message
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim iaculis vehicula. Curabitur ante tortor."
+          date={new Date()}
+          user={{
+            firstName: "Joe",
+            lastName: "Smith",
+          }}
+        />
+        <Message
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non turpis ac sapien eleifend cursus. In et enim et diam tincidunt dignissim venenatis ut ipsum. Quisque faucibus ligula bibendum magna commodo varius. Nullam odio arcu."
+          date={new Date()}
+          user={{
+            firstName: "Dave",
+            lastName: "Johnson",
+          }}
+        />
+      </VStack>
+    </Container>
+    <Footer />
   </ChakraProvider>
-)
+);
 
 export default App;
