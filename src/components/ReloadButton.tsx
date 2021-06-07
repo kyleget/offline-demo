@@ -1,4 +1,4 @@
-import { Box, IconButton, Spinner, Tooltip } from "@chakra-ui/react";
+import { IconButton, Spinner, Tooltip } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 

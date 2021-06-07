@@ -7,7 +7,7 @@ import SignInScreen from "./components/SignInScreen";
 import Message from "./components/Message";
 
 const App = () => {
-  const { loginWithRedirect, isLoading, isAuthenticated } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return (
