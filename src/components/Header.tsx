@@ -1,12 +1,7 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Text } from "@chakra-ui/react";
 
 import DinoIcon from "./DinoIcon";
-import Menu from './Menu';
+import Menu from "./Menu";
 
 const Header = () => {
   return (
@@ -23,13 +18,13 @@ const Header = () => {
       <Container maxWidth="container.md">
         <Flex justify="space-between">
           <Box width="40px">
-            <Menu />
+            <DinoIcon />
           </Box>
           <Text textAlign="center" fontSize="2xl" fontWeight="semibold">
             Messages
           </Text>
           <Box width="40px">
-            <DinoIcon />
+            <Menu />
           </Box>
         </Flex>
       </Container>
