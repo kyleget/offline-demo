@@ -13,9 +13,6 @@ const useAppUpdate = (isOffline: boolean) => {
           const cleanedVersion = version.replace(/(\r\n|\n|\r)/gm, "");
           setServerVersion(cleanedVersion);
           setUpdateAvailable(process.env.REACT_APP_VERSION !== cleanedVersion);
-
-          console.log({ cleanedVersion });
-          console.log('REACT_APP_VERSION', process.env.REACT_APP_VERSION);
         }
       }, 10000);
 

@@ -22,6 +22,8 @@ const App = () => {
   const { updateAvailable } = useAppUpdate(isOffline);
   const [pendingMessages, setPendingMessages] = useState<Message[]>([]);
 
+  console.log(updateAvailable);
+
   const { data, startPolling, stopPolling } = useQuery(GetMessagesQuery, {
     skip: !isAuthenticated,
   });

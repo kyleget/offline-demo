@@ -10,7 +10,6 @@ type Props = {
 };
 
 const Header = ({ isOffline, updateAvailable }: Props) => {
-  console.log({ updateAvailable });
   return (
     <Box
       borderBottomColor="gray.300"
