@@ -1,10 +1,4 @@
-import {
-  Container,
-  Box,
-  Flex,
-  IconButton,
-  Input,
-} from "@chakra-ui/react";
+import { Container, Box, Flex, IconButton, Input } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 
@@ -48,7 +42,11 @@ const Footer = ({ onSubmit, isOffline }: Props) => {
             <Input
               colorScheme="whatsapp"
               bgColor="white"
-              placeholder={`${isOffline ? "You're offline, but you can still queue a message..." : "Send a message"}`}
+              placeholder={`${
+                isOffline
+                  ? "You're offline, but you can still queue a message..."
+                  : "Send a message"
+              }`}
               marginRight={2}
               value={inputValue}
               onChange={handleInputChange}
