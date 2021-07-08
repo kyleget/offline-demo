@@ -1,8 +1,12 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
 const AppUpdateButton = (): JSX.Element | null => {
+  const [isReloading, setIsReloading] = useState(false);
+
   const handleInstallUpdate = () => {
+    setIsReloading(true);
     caches.keys().then((names) => {
       names.forEach((name) => {
         caches.delete(name);
@@ -20,9 +24,7 @@ const AppUpdateButton = (): JSX.Element | null => {
       placement="bottom"
     >
       <IconButton
-        bottom={6}
-        position="fixed"
-        right={6}
+        isLoading={isReloading}
         aria-label="Update Available"
         colorScheme="blue"
         icon={<RepeatIcon />}
@@ -31,7 +33,6 @@ const AppUpdateButton = (): JSX.Element | null => {
         size="sm"
         width="40px"
         onClick={handleInstallUpdate}
-        zIndex={2}
       />
     </Tooltip>
   );
