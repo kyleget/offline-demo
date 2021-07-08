@@ -2,24 +2,18 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { TimeIcon, CheckIcon } from "@chakra-ui/icons";
 import { format } from "date-fns";
 
-type User = {
-  firstName: string;
-  lastName: string;
-};
-
 type Props = {
-  message: string;
+  text: string;
   date: Date;
-  user: User;
+  name: string;
+  isSelf?: Boolean;
   pending?: Boolean;
 };
 
-const Message = ({ message, date, user, pending = false }: Props) => {
-  const isSelf = user.firstName === "Kyle" && user.lastName === "Getrost";
-
+const Message = ({ text, date, name, isSelf = false, pending = false }: Props) => {
+  console.log(date);
   return (
     <Flex flexDirection={isSelf ? "row-reverse" : "row"}>
-      <Text>{}</Text>
       <Box
         backgroundColor={isSelf ? "whatsapp.50" : "blue.50"}
         borderColor={isSelf ? "whatsapp.100" : "blue.100"}
@@ -27,13 +21,14 @@ const Message = ({ message, date, user, pending = false }: Props) => {
         borderRadius={10}
         padding={2}
         maxWidth="70%"
+        minWidth="25%"
       >
         <Text>
           <b>
-            {user.firstName} {user.lastName}
+            {name}
           </b>
           <br />
-          {message}
+          {text}
         </Text>
         <Text color="gray.500" fontSize="smaller" align="end">
           {format(date, "M/d/yyyy h:mmaaa")}

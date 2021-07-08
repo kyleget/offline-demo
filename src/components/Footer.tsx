@@ -1,13 +1,32 @@
-import {
-  Container,
-  Box,
-  Flex,
-  IconButton,
-  Input,
-} from "@chakra-ui/react";
+import { Container, Box, Flex, IconButton, Input } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import React, { useState } from "react";
 
-const Footer = () => {
+type Props = {
+  onSubmit: (message: string) => void;
+};
+
+const Footer = ({ onSubmit }: Props) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (!inputValue) {
+      return;
+    }
+    onSubmit(inputValue);
+    setInputValue('');
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter'){
+      handleSubmit();
+    }
+  }
+
   return (
     <Box position="fixed" left={0} right={0} bottom={0}>
       <Box
@@ -24,11 +43,15 @@ const Footer = () => {
               bgColor="white"
               placeholder="Send a message"
               marginRight={2}
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
             />
             <IconButton
               colorScheme="whatsapp"
               aria-label="send"
               icon={<ArrowForwardIcon />}
+              onClick={handleSubmit}
             />
           </Flex>
         </Container>

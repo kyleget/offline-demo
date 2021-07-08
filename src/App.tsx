@@ -1,13 +1,47 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useMutation, useQuery } from "@apollo/client";
 import { Center, Container, Spinner, VStack } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SignInScreen from "./components/SignInScreen";
 import Message from "./components/Message";
+import GetMessagesQuery from "./graphql/GetMessagesQuery";
+import CreateMessageMutation from "./graphql/CreateMessageMutation";
+
+type Message = {
+  created_at: string;
+  text: string;
+  user: {
+    auth0_id: string;
+    name: string;
+  };
+};
 
 const App = () => {
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { isLoading, isAuthenticated, user } = useAuth0();
+
+  const { data } = useQuery(GetMessagesQuery, {
+    skip: !isAuthenticated,
+    pollInterval: 5000,
+  });
+
+  const [createMessage] = useMutation(CreateMessageMutation);
+
+  const handleSubmit = async (text: string) => {
+    await createMessage({
+      variables: {
+        text,
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (data) {
+      window.scrollTo(0,document.body.scrollHeight);
+    }
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -26,58 +60,17 @@ const App = () => {
       <Container maxWidth="container.md">
         <Header />
         <VStack spacing={3} align="stretch" paddingTop={20} paddingBottom={36}>
-          <Message
-            message="This is a test message."
-            date={new Date()}
-            user={{
-              firstName: "Kyle",
-              lastName: "Getrost",
-            }}
-          />
-          <Message
-            message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim iaculis vehicula. Curabitur ante tortor."
-            date={new Date()}
-            user={{
-              firstName: "Kyle",
-              lastName: "Getrost",
-            }}
-          />
-          <Message
-            message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non turpis ac sapien eleifend cursus. In et enim et diam tincidunt dignissim venenatis ut ipsum. Quisque faucibus ligula bibendum magna commodo varius. Nullam odio arcu."
-            date={new Date()}
-            user={{
-              firstName: "Dave",
-              lastName: "Johnson",
-            }}
-          />
-          <Message
-            message="This is a test message."
-            date={new Date()}
-            user={{
-              firstName: "Kyle",
-              lastName: "Getrost",
-            }}
-            pending
-          />
-          <Message
-            message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim iaculis vehicula. Curabitur ante tortor."
-            date={new Date()}
-            user={{
-              firstName: "Joe",
-              lastName: "Smith",
-            }}
-          />
-          <Message
-            message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non turpis ac sapien eleifend cursus. In et enim et diam tincidunt dignissim venenatis ut ipsum. Quisque faucibus ligula bibendum magna commodo varius. Nullam odio arcu."
-            date={new Date()}
-            user={{
-              firstName: "Dave",
-              lastName: "Johnson",
-            }}
-          />
+          {(data?.messages ?? []).map((message: Message) => (
+            <Message
+              text={message.text}
+              date={new Date(message.created_at)}
+              name={message.user.name}
+              isSelf={message.user.auth0_id === user?.sub}
+            />
+          ))}
         </VStack>
       </Container>
-      <Footer />
+      <Footer onSubmit={handleSubmit} />
     </>
   );
 };
