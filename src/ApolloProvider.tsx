@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 import { RetryLink } from "@apollo/client/link/retry";
 import { setContext } from "@apollo/client/link/context";
+import QueueLink from "apollo-link-queue";
 import { ReactNode } from "react";
 
 type Props = {
@@ -33,9 +34,14 @@ const Provider = ({ children }: Props) => {
 
   const retryLink = new RetryLink();
 
+  const queueLink = new QueueLink();
+
+  window.addEventListener('online', () => queueLink.open());
+  window.addEventListener('offline', () => queueLink.close());
+
   const client = new ApolloClient({
     cache: new InMemoryCache({}),
-    link: ApolloLink.from([authLink, retryLink, httpLink]),
+    link: ApolloLink.from([authLink, retryLink, queueLink, httpLink]),
   });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;

@@ -8,23 +8,26 @@ import * as serviceWorkerRegistration from "./sw/serviceWorkerRegistration";
 
 import App from "./App";
 
-ReactDOM.render(
-  <Auth0Provider
-    domain={process.env.REACT_APP_AUTH0_DOMAIN ?? ""}
-    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID ?? ""}
-    redirectUri={window.location.origin}
-    audience="hasura"
-  >
-    <ApolloProvider>
-      <ChakraProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </ChakraProvider>
-    </ApolloProvider>
-  </Auth0Provider>,
-  document.getElementById("root")
-);
+const Root = () => {
+  return (
+    <Auth0Provider
+      domain={process.env.REACT_APP_AUTH0_DOMAIN ?? ""}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID ?? ""}
+      redirectUri={window.location.origin}
+      audience="hasura"
+    >
+      <ApolloProvider>
+        <ChakraProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </ChakraProvider>
+      </ApolloProvider>
+    </Auth0Provider>
+  );
+};
+
+ReactDOM.render(<Root />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

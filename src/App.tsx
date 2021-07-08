@@ -12,7 +12,7 @@ import MessageBubble from "./components/MessageBubble";
 import GetMessagesQuery from "./graphql/GetMessagesQuery";
 import CreateMessageMutation from "./graphql/CreateMessageMutation";
 import useAppUpdate from "./hooks/useAppUpdate";
-import useOffline from "./hooks/useOffline";
+import useOffline from './hooks/useOffline';
 
 const POLL_INTERVAL = 5000;
 

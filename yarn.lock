@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.3.21":
+"@apollo/client@^3.2.4", "@apollo/client@^3.3.21":
   version "3.3.21"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.21.tgz#2862baa4e1ced8c5e89ebe6fc52877fc64a726aa"
   integrity sha512-RAmZReFuKCKx0Rs5C0nVJwKomAHUHn+gGP/YvbEsXQWu0sXoncEUZa71UqlfCPVXa/0MkYOIbCXSQdOcuRrHgw==
@@ -3092,6 +3092,13 @@ anymatch@^3.0.3, anymatch@~3.1.1:
   dependencies:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
+
+apollo-link-queue@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/apollo-link-queue/-/apollo-link-queue-3.1.0.tgz#58cdc7cc3833b3db9959d384c4f3e584dcfa6b49"
+  integrity sha512-9zu6MZHKBN2iChhfnvmqSaqnAnhS5taKVS+fzJDEPfxXF2K1S5P84ykOyWr2LuBLOSm6/eDWkE1kIuClPIeI9A==
+  dependencies:
+    "@apollo/client" "^3.2.4"
 
 aproba@^1.1.1:
   version "1.2.0"
