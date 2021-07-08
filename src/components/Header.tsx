@@ -25,7 +25,7 @@ const Header = ({ isOffline, updateAvailable }: Props) => {
         <Flex justify="space-between">
           <Box width="40px">
             {isOffline && <DinoIcon />}
-            <AppUpdateButton />
+            {updateAvailable && <AppUpdateButton />}
           </Box>
           <Text textAlign="center" fontSize="2xl" fontWeight="semibold">
             Messages 2.0
