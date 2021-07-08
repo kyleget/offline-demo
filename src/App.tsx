@@ -60,7 +60,6 @@ const App = () => {
   }, [pendingMessages]);
 
   useEffect(() => {
-    console.log('isOffline', isOffline);
     if (isOffline) {
       stopPolling();
       return;
