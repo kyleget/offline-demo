@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SignInScreen from "./components/SignInScreen";
-import Message from "./components/Message";
+import MessageBubble from "./components/Message";
 import GetMessagesQuery from "./graphql/GetMessagesQuery";
 import CreateMessageMutation from "./graphql/CreateMessageMutation";
 
@@ -61,7 +61,7 @@ const App = () => {
         <Header />
         <VStack spacing={3} align="stretch" paddingTop={20} paddingBottom={36}>
           {(data?.messages ?? []).map((message: Message) => (
-            <Message
+            <MessageBubble
               text={message.text}
               date={new Date(message.created_at)}
               name={message.user.name}
