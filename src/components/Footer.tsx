@@ -4,7 +4,6 @@ import {
   Flex,
   IconButton,
   Input,
-  Text,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
