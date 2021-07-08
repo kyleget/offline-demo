@@ -10,8 +10,7 @@ type Props = {
   pending?: Boolean;
 };
 
-const Message = ({ text, date, name, isSelf = false, pending = false }: Props) => {
-  console.log(date);
+const MessageBubble = ({ text, date, name, isSelf = false, pending = false }: Props) => {
   return (
     <Flex flexDirection={isSelf ? "row-reverse" : "row"}>
       <Box
@@ -47,4 +46,4 @@ const Message = ({ text, date, name, isSelf = false, pending = false }: Props) =
   );
 };
 
-export default Message;
+export default MessageBubble;

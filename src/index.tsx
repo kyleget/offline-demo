@@ -9,9 +9,6 @@ import reportWebVitals from "./reportWebVitals";
 
 import App from "./App";
 
-console.log(process.env.REACT_APP_AUTH0_DOMAIN);
-console.log(process.env.REACT_APP_AUTH0_CLIENT_ID);
-
 ReactDOM.render(
   <Auth0Provider
     domain={process.env.REACT_APP_AUTH0_DOMAIN ?? ""}
