@@ -4,7 +4,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import ApolloProvider from "./ApolloProvider";
-import * as serviceWorkerRegistration from "./sw/serviceWorkerRegistration";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 import App from "./App";
 
