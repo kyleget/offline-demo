@@ -1,4 +1,11 @@
-import { Container, Box, Flex, IconButton, Input } from "@chakra-ui/react";
+import {
+  Container,
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 
@@ -35,7 +42,7 @@ const Footer = ({ onSubmit, isOffline }: Props) => {
         borderTopWidth={1}
         bgColor="gray.50"
         paddingTop={5}
-        paddingBottom={16}
+        paddingBottom={10}
       >
         <Container maxWidth="container.md">
           <Flex>
@@ -59,6 +66,7 @@ const Footer = ({ onSubmit, isOffline }: Props) => {
               onClick={handleSubmit}
             />
           </Flex>
+          <Text textAlign="center" fontSize="xs" marginTop={4}>Build Version: {process.env.REACT_APP_VERSION}</Text>
         </Container>
       </Box>
     </Box>
