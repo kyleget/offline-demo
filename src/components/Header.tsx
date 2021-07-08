@@ -1,9 +1,15 @@
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 
 import DinoIcon from "./DinoIcon";
+import AppUpdateButton from "./AppUpdateButton";
 import Menu from "./Menu";
 
-const Header = () => {
+type Props = {
+  isOffline: boolean;
+  updateAvailable: boolean;
+};
+
+const Header = ({ isOffline, updateAvailable }: Props) => {
   return (
     <Box
       borderBottomColor="gray.300"
@@ -18,7 +24,8 @@ const Header = () => {
       <Container maxWidth="container.md">
         <Flex justify="space-between">
           <Box width="40px">
-            <DinoIcon />
+            {isOffline && <DinoIcon />}
+            {updateAvailable && <AppUpdateButton />}
           </Box>
           <Text textAlign="center" fontSize="2xl" fontWeight="semibold">
             Messages

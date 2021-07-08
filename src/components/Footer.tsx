@@ -1,12 +1,20 @@
-import { Container, Box, Flex, IconButton, Input } from "@chakra-ui/react";
+import {
+  Container,
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 
 type Props = {
   onSubmit: (message: string) => void;
+  isOffline: boolean;
 };
 
-const Footer = ({ onSubmit }: Props) => {
+const Footer = ({ onSubmit, isOffline }: Props) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,14 +26,14 @@ const Footer = ({ onSubmit }: Props) => {
       return;
     }
     onSubmit(inputValue);
-    setInputValue('');
+    setInputValue("");
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter'){
+    if (event.key === "Enter") {
       handleSubmit();
     }
-  }
+  };
 
   return (
     <Box position="fixed" left={0} right={0} bottom={0}>
@@ -41,7 +49,7 @@ const Footer = ({ onSubmit }: Props) => {
             <Input
               colorScheme="whatsapp"
               bgColor="white"
-              placeholder="Send a message"
+              placeholder={`${isOffline ? "You're offline, but you can still queue a message..." : "Send a message"}`}
               marginRight={2}
               value={inputValue}
               onChange={handleInputChange}

@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Center, Container, Spinner, VStack } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { Message } from "./types";
 
@@ -11,15 +11,19 @@ import SignInScreen from "./components/SignInScreen";
 import MessageBubble from "./components/MessageBubble";
 import GetMessagesQuery from "./graphql/GetMessagesQuery";
 import CreateMessageMutation from "./graphql/CreateMessageMutation";
+import useAppUpdate from "./hooks/useAppUpdate";
+import useOffline from "./hooks/useOffline";
+
+const POLL_INTERVAL = 5000;
 
 const App = () => {
-  const isInitializedRef = useRef(false);
   const { isLoading: userIsLoading, isAuthenticated, user } = useAuth0();
+  const { isOffline } = useOffline();
+  const { updateAvailable } = useAppUpdate(isOffline);
   const [pendingMessages, setPendingMessages] = useState<Message[]>([]);
 
-  const { data, loading: dataIsLoading } = useQuery(GetMessagesQuery, {
+  const { data, startPolling, stopPolling } = useQuery(GetMessagesQuery, {
     skip: !isAuthenticated,
-    pollInterval: 5000,
   });
 
   const [createMessage] = useMutation(CreateMessageMutation);
@@ -49,17 +53,22 @@ const App = () => {
 
   useEffect(() => {
     setPendingMessages([]);
-
-    if (data) {
-      isInitializedRef.current = true;
-    }
   }, [data]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [pendingMessages]);
 
-  if (userIsLoading || (dataIsLoading && !isInitializedRef)) {
+  useEffect(() => {
+    console.log('isOffline', isOffline);
+    if (isOffline) {
+      stopPolling();
+      return;
+    }
+    startPolling(POLL_INTERVAL)
+  }, [isOffline, startPolling, stopPolling]);
+
+  if (userIsLoading) {
     return (
       <Center>
         <Spinner colorScheme="blue" thickness="3px" size="xl" mt={36} />
@@ -67,15 +76,14 @@ const App = () => {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !isOffline) {
     return <SignInScreen />;
   }
-
 
   return (
     <>
       <Container maxWidth="container.md">
-        <Header />
+        <Header isOffline={isOffline} updateAvailable={updateAvailable} />
         <VStack spacing={3} align="stretch" paddingTop={20} paddingBottom={36}>
           {[...(data?.messages ?? []), ...pendingMessages].map((message: Message) => (
             <MessageBubble
@@ -89,7 +97,7 @@ const App = () => {
           ))}
         </VStack>
       </Container>
-      <Footer onSubmit={handleSubmit} />
+      <Footer isOffline={isOffline} onSubmit={handleSubmit} />
     </>
   );
 };

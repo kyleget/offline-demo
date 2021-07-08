@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Icon, Tooltip } from "@chakra-ui/react";
 
 const DinoIcon = React.forwardRef((props: any, ref) => (
@@ -11,7 +11,13 @@ const DinoIcon = React.forwardRef((props: any, ref) => (
 ));
 
 const DinoIconWithTooltip = () => (
-  <Tooltip borderRadius={4} fontSize="smaller" gutter={1} label="Offline" placement="bottom">
+  <Tooltip
+    borderRadius={4}
+    fontSize="smaller"
+    gutter={1}
+    label="Offline"
+    placement="bottom"
+  >
     <DinoIcon boxSize="40px" color="#525252" />
   </Tooltip>
 );
