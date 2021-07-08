@@ -36,12 +36,17 @@ const Provider = ({ children }: Props) => {
 
   const queueLink = new QueueLink();
 
-  window.addEventListener('online', () => queueLink.open());
-  window.addEventListener('offline', () => queueLink.close());
+  window.addEventListener("online", () => queueLink.open());
+  window.addEventListener("offline", () => queueLink.close());
 
   const client = new ApolloClient({
     cache: new InMemoryCache({}),
-    link: ApolloLink.from([authLink, retryLink, queueLink, httpLink]),
+    link: ApolloLink.from([
+      authLink,
+      retryLink,
+      queueLink,
+      httpLink,
+    ]),
   });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
