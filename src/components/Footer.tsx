@@ -12,9 +12,10 @@ import React, { useState } from "react";
 type Props = {
   onSubmit: (message: string) => void;
   isOffline: boolean;
+  isDisabled: boolean;
 };
 
-const Footer = ({ onSubmit, isOffline }: Props) => {
+const Footer = ({ onSubmit, isOffline, isDisabled = false }: Props) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,15 +59,19 @@ const Footer = ({ onSubmit, isOffline }: Props) => {
               value={inputValue}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
+              disabled={isDisabled}
             />
             <IconButton
               colorScheme="whatsapp"
               aria-label="send"
               icon={<ArrowForwardIcon />}
               onClick={handleSubmit}
+              disabled={isDisabled}
             />
           </Flex>
-          <Text textAlign="center" fontSize="xs" marginTop={4}>Build Version: {process.env.REACT_APP_VERSION}</Text>
+          <Text textAlign="center" fontSize="xs" marginTop={4}>
+            Build Version: {process.env.REACT_APP_VERSION}
+          </Text>
         </Container>
       </Box>
     </Box>
