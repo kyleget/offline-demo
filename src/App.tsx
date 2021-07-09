@@ -7,7 +7,6 @@ import type { Message } from "./types";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SignInScreen from "./components/SignInScreen";
 import MessageBubble from "./components/MessageBubble";
 import GetMessagesQuery from "./graphql/GetMessagesQuery";
 import CreateMessageMutation from "./graphql/CreateMessageMutation";
