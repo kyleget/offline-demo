@@ -12,12 +12,17 @@ import MessageBubble from "./components/MessageBubble";
 import GetMessagesQuery from "./graphql/GetMessagesQuery";
 import CreateMessageMutation from "./graphql/CreateMessageMutation";
 import useAppUpdate from "./hooks/useAppUpdate";
-import useOffline from './hooks/useOffline';
+import useOffline from "./hooks/useOffline";
 
 const POLL_INTERVAL = 1000;
 
 const App = () => {
-  const { isLoading: userIsLoading, isAuthenticated, user } = useAuth0();
+  const {
+    isLoading: userIsLoading,
+    isAuthenticated,
+    user,
+    loginWithRedirect,
+  } = useAuth0();
   const { isOffline } = useOffline();
   const { updateAvailable } = useAppUpdate(isOffline);
   const [pendingMessages, setPendingMessages] = useState<Message[]>([]);
@@ -65,7 +70,7 @@ const App = () => {
       stopPolling();
       return;
     }
-    startPolling(POLL_INTERVAL)
+    startPolling(POLL_INTERVAL);
   }, [isOffline, startPolling, stopPolling]);
 
   if (userIsLoading) {
@@ -76,11 +81,8 @@ const App = () => {
     );
   }
 
-  console.log({ isAuthenticated });
-  console.log({ isOffline });
-
   if (!isAuthenticated && !isOffline) {
-    return <SignInScreen />;
+    loginWithRedirect();
   }
 
   return (
@@ -88,16 +90,18 @@ const App = () => {
       <Container maxWidth="container.md">
         <Header isOffline={isOffline} updateAvailable={updateAvailable} />
         <VStack spacing={3} align="stretch" paddingTop={20} paddingBottom={36}>
-          {[...(data?.messages ?? []), ...pendingMessages].map((message: Message) => (
-            <MessageBubble
-              key={message.id}
-              text={message.text}
-              date={new Date(message.created_at)}
-              name={message.user.name}
-              isSelf={message.user.auth0_id === user?.sub}
-              pending={message.pending}
-            />
-          ))}
+          {[...(data?.messages ?? []), ...pendingMessages].map(
+            (message: Message) => (
+              <MessageBubble
+                key={message.id}
+                text={message.text}
+                date={new Date(message.created_at)}
+                name={message.user.name}
+                isSelf={message.user.auth0_id === user?.sub}
+                pending={message.pending}
+              />
+            )
+          )}
         </VStack>
       </Container>
       <Footer isOffline={isOffline} onSubmit={handleSubmit} />

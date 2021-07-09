@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useOffline = () => {
+  console.log('navigator.onLine', navigator.onLine);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   useEffect(() => {
