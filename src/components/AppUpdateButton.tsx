@@ -2,17 +2,19 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
+import * as serviceWorkerRegistration from "../serviceWorkerRegistration";
+
 const AppUpdateButton = (): JSX.Element | null => {
   const [isReloading, setIsReloading] = useState(false);
 
-  const handleInstallUpdate = () => {
+  const handleInstallUpdate = async () => {
     setIsReloading(true);
-    caches.keys().then((names) => {
-      names.forEach((name) => {
-        caches.delete(name);
-      });
-    });
-    window.location.reload();
+    const keys = await caches.keys();
+    await Promise.all(keys.map((key) => caches.delete(key)));
+    serviceWorkerRegistration.unregister();
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   };
 
   return (
