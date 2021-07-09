@@ -37,7 +37,7 @@ const App = ({ isOffline }: Props) => {
   const [internalPendingMessages, setInternalPendingMessages] =
     useState<Message[] | undefined>(undefined);
 
-  const [offlineCache, setOfflineCache] = useState<OfflineCache>({
+  const [offlineCache, /* setOfflineCache */] = useState<OfflineCache>({
     user: undefined,
     messages: undefined,
     pendingMessages: undefined,
@@ -79,6 +79,7 @@ const App = ({ isOffline }: Props) => {
     });
   };
 
+  /* TODO: Uncomment this block
   useEffect(() => {
     if (isOffline) {
       Promise.all([
@@ -94,6 +95,7 @@ const App = ({ isOffline }: Props) => {
       });
     }
   });
+  */
 
   useEffect(() => {
     if (data) {

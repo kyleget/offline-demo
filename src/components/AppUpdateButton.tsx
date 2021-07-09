@@ -17,6 +17,11 @@ const AppUpdateButton = (): JSX.Element | null => {
     }, 3000);
   };
 
+  /* TODO: Remove this */
+  if (true) {
+    return null;
+  }
+
   return (
     <Tooltip
       borderRadius={4}
