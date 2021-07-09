@@ -24,6 +24,7 @@ const App = () => {
 
   const { data, startPolling, stopPolling } = useQuery(GetMessagesQuery, {
     skip: !isAuthenticated,
+    pollInterval: POLL_INTERVAL,
   });
 
   const [createMessage] = useMutation(CreateMessageMutation);
