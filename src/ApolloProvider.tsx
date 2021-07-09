@@ -9,13 +9,14 @@ import {
 import { RetryLink } from "@apollo/client/link/retry";
 import { setContext } from "@apollo/client/link/context";
 import QueueLink from "apollo-link-queue";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 
 type Props = {
   children: ReactNode;
+  isOffline: boolean;
 };
 
-const Provider = ({ children }: Props) => {
+const Provider = ({ isOffline, children }: Props) => {
   const { getAccessTokenSilently } = useAuth0();
 
   const httpLink = createHttpLink({
@@ -34,10 +35,7 @@ const Provider = ({ children }: Props) => {
 
   const retryLink = new RetryLink();
 
-  const queueLink = new QueueLink();
-
-  window.addEventListener("online", () => queueLink.open());
-  window.addEventListener("offline", () => queueLink.close());
+  const queueLink = useMemo(() => new QueueLink(), []);
 
   const client = new ApolloClient({
     cache: new InMemoryCache({}),
@@ -48,6 +46,14 @@ const Provider = ({ children }: Props) => {
       httpLink,
     ]),
   });
+
+  useEffect(() => {
+    if (isOffline) {
+      queueLink.close();
+      return;
+    }
+    queueLink.open();
+  }, [isOffline, queueLink]);
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };

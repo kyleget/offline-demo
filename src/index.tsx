@@ -27,7 +27,7 @@ const Root = () => {
       redirectUri={window.location.origin}
       audience="hasura"
     >
-      <ApolloProvider>
+      <ApolloProvider isOffline={isOffline}>
         <ChakraProvider>
           <React.StrictMode>
             <App isOffline={isOffline} />
