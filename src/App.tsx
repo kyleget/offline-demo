@@ -80,9 +80,9 @@ const App = () => {
     );
   }
 
-  if (!isAuthenticated && !isOffline) {
+  /*if (!isAuthenticated && !isOffline) {
     loginWithRedirect();
-  }
+  }*/
 
   return (
     <>
