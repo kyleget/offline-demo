@@ -32,8 +32,10 @@ const App = ({ isOffline }: Props) => {
   } = useAuth0();
   const { updateAvailable } = useAppUpdate(isOffline);
 
-  const [internalMessages, setInternalMessages] = useState<Message[] | undefined>(undefined);
-  const [internalPendingMessages, setInternalPendingMessages] = useState<Message[] | undefined>(undefined);
+  const [internalMessages, setInternalMessages] =
+    useState<Message[] | undefined>(undefined);
+  const [internalPendingMessages, setInternalPendingMessages] =
+    useState<Message[] | undefined>(undefined);
 
   const [offlineCache, setOfflineCache] = useState<OfflineCache>({
     user: undefined,
@@ -48,7 +50,8 @@ const App = ({ isOffline }: Props) => {
 
   // Determine whether to use server data or cached data
   const messages = internalMessages ?? offlineCache.messages;
-  const pendingMessages = internalPendingMessages ?? offlineCache.pendingMessages;
+  const pendingMessages =
+    internalPendingMessages ?? offlineCache.pendingMessages;
   const user = authenticatedUser ?? offlineCache.user;
 
   const [createMessage] = useMutation(CreateMessageMutation);
@@ -117,8 +120,8 @@ const App = ({ isOffline }: Props) => {
   }, [isOffline, startPolling, stopPolling]);
 
   useEffect(() => {
-    localforage.setItem<User | undefined>(CACHE_KEY_USER, user);
-  }, [user]);
+    localforage.setItem<User | undefined>(CACHE_KEY_USER, authenticatedUser);
+  }, [authenticatedUser]);
 
   if (userIsLoading) {
     return <Progress size="xs" isIndeterminate />;
@@ -147,7 +150,11 @@ const App = ({ isOffline }: Props) => {
           )}
         </VStack>
       </Container>
-      <Footer isDisabled={!user} isOffline={isOffline} onSubmit={handleSubmit} />
+      <Footer
+        isDisabled={!user}
+        isOffline={isOffline}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };
