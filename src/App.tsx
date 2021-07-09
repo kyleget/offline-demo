@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "@apollo/client";
-import { Center, Container, Spinner, VStack } from "@chakra-ui/react";
+import { Container, Progress, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import type { Message } from "./types";
@@ -11,18 +11,20 @@ import MessageBubble from "./components/MessageBubble";
 import GetMessagesQuery from "./graphql/GetMessagesQuery";
 import CreateMessageMutation from "./graphql/CreateMessageMutation";
 import useAppUpdate from "./hooks/useAppUpdate";
-import useOffline from "./hooks/useOffline";
 
 const POLL_INTERVAL = 1000;
 
-const App = () => {
+type Props = {
+  isOffline: boolean;
+};
+
+const App = ({ isOffline }: Props) => {
   const {
     isLoading: userIsLoading,
     isAuthenticated,
     user,
-    // loginWithRedirect,
+    loginWithRedirect,
   } = useAuth0();
-  const { isOffline } = useOffline();
   const { updateAvailable } = useAppUpdate(isOffline);
   const [pendingMessages, setPendingMessages] = useState<Message[]>([]);
 
@@ -74,15 +76,13 @@ const App = () => {
 
   if (userIsLoading) {
     return (
-      <Center>
-        <Spinner colorScheme="blue" thickness="3px" size="xl" mt={36} />
-      </Center>
+      <Progress size="xs" isIndeterminate />
     );
   }
 
-  /*if (!isAuthenticated && !isOffline) {
+  if (!isAuthenticated && !isOffline) {
     loginWithRedirect();
-  }*/
+  }
 
   return (
     <>

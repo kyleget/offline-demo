@@ -1,14 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Progress } from "@chakra-ui/react";
 
 import ApolloProvider from "./ApolloProvider";
+import useOffline from "./hooks/useOffline";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 import App from "./App";
 
 const Root = () => {
+  const { checkingNetworkStatus, isOffline } = useOffline();
+
+  if (checkingNetworkStatus) {
+    return (
+      <ChakraProvider>
+        <Progress size="xs" isIndeterminate />
+      </ChakraProvider>
+    );
+  }
+
   return (
     <Auth0Provider
       domain={process.env.REACT_APP_AUTH0_DOMAIN ?? ""}
@@ -19,7 +30,7 @@ const Root = () => {
       <ApolloProvider>
         <ChakraProvider>
           <React.StrictMode>
-            <App />
+            <App isOffline={isOffline} />
           </React.StrictMode>
         </ChakraProvider>
       </ApolloProvider>
