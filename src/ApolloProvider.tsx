@@ -52,4 +52,4 @@ const Provider = ({ children }: Props) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 
-export default withAuthenticationRequired(Provider);
+export default Provider;
