@@ -75,6 +75,8 @@ const App = () => {
     );
   }
 
+  console.log(!isAuthenticated, !isOffline);
+
   if (!isAuthenticated && !isOffline) {
     return <SignInScreen />;
   }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useOffline = () => {
-  const [isOffline, setIsOffline] = useState(false);
+  const [isOffline, setIsOffline] = useState(navigator.onLine);
 
   useEffect(() => {
     window.addEventListener('online', () => setIsOffline(false));
