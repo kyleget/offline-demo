@@ -12,9 +12,9 @@ const AppUpdateButton = (): JSX.Element | null => {
     const keys = await caches.keys();
     await Promise.all(keys.map((key) => caches.delete(key)));
     serviceWorkerRegistration.unregister();
-    /*setTimeout(() => {
+    setTimeout(() => {
       window.location.reload();
-    }, 3000);*/
+    }, 3000);
   };
 
   return (
