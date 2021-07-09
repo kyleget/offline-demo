@@ -120,7 +120,9 @@ const App = ({ isOffline }: Props) => {
   }, [isOffline, startPolling, stopPolling]);
 
   useEffect(() => {
-    localforage.setItem<User | undefined>(CACHE_KEY_USER, authenticatedUser);
+    if (authenticatedUser) {
+      localforage.setItem<User | undefined>(CACHE_KEY_USER, authenticatedUser);
+    }
   }, [authenticatedUser]);
 
   if (userIsLoading) {
@@ -130,6 +132,8 @@ const App = ({ isOffline }: Props) => {
   if (!isAuthenticated && !isOffline) {
     loginWithRedirect();
   }
+
+  console.log({ offlineCache });
 
   return (
     <>
