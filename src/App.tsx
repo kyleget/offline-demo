@@ -20,7 +20,7 @@ const App = () => {
     isLoading: userIsLoading,
     isAuthenticated,
     user,
-    loginWithRedirect,
+    // loginWithRedirect,
   } = useAuth0();
   const { isOffline } = useOffline();
   const { updateAvailable } = useAppUpdate(isOffline);
