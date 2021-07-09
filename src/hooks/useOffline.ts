@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const checkNetworkStatus = () =>
   new Promise((resolve) => {
@@ -12,6 +12,7 @@ const checkNetworkStatus = () =>
 const useOffline = () => {
   const [isOffline, setIsOffline] = useState<boolean>(false);
   const [checkingNetworkStatus, setCheckingNetworkStatus] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -27,6 +28,24 @@ const useOffline = () => {
       window.removeEventListener("offline", () => setIsOffline(true));
     };
   }, []);
+
+  useEffect(() => {
+    if (isOffline) {
+      const interval = setInterval(() => {
+        (async () => {
+          const isOnline = await checkNetworkStatus();
+          setIsOffline(!isOnline);
+        })();
+      }, 3000);
+      intervalRef.current = interval;
+      return;
+    }
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = null;
+  }, [isOffline]);
 
   return {
     isOffline,
