@@ -14,7 +14,7 @@ import CreateMessageMutation from "./graphql/CreateMessageMutation";
 import useAppUpdate from "./hooks/useAppUpdate";
 import useOffline from './hooks/useOffline';
 
-const POLL_INTERVAL = 5000;
+const POLL_INTERVAL = 1000;
 
 const App = () => {
   const { isLoading: userIsLoading, isAuthenticated, user } = useAuth0();
