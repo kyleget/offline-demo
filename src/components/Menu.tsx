@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Menu as ChakraMenu,
   MenuButton,
@@ -22,12 +22,12 @@ const Menu = () => {
         variant="outline"
       />
       <MenuList>
-        <MenuItem onClick={() => logout()}>
+        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
           Sign Out
-      </MenuItem>
+        </MenuItem>
       </MenuList>
     </ChakraMenu>
   );
-}
+};
 
 export default Menu;
