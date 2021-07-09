@@ -133,8 +133,6 @@ const App = ({ isOffline }: Props) => {
     loginWithRedirect();
   }
 
-  console.log({ offlineCache });
-
   return (
     <>
       <Container maxWidth="container.md">
