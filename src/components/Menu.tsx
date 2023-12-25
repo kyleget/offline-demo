@@ -1,12 +1,12 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 import {
   Menu as ChakraMenu,
   MenuButton,
   MenuItem,
   MenuList,
   IconButton,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 const Menu = () => {
   const { logout } = useAuth0();
@@ -22,7 +22,15 @@ const Menu = () => {
         variant="outline"
       />
       <MenuList>
-        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+        <MenuItem
+          onClick={() =>
+            logout({
+              logoutParams: {
+                returnTo: window.location.origin,
+              },
+            })
+          }
+        >
           Sign Out
         </MenuItem>
       </MenuList>

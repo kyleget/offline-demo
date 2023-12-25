@@ -1,23 +1,23 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, useQuery } from "@apollo/client";
-import { Container, Progress, VStack } from "@chakra-ui/react";
-import localforage from "localforage";
-import { useEffect, useState } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
+import { useMutation, useQuery } from '@apollo/client';
+import { Container, Progress, VStack } from '@chakra-ui/react';
+import localforage from 'localforage';
+import { useEffect, useState } from 'react';
 
-import type { User } from "@auth0/auth0-spa-js";
-import type { Message, OfflineCache } from "./types";
+import type { User } from '@auth0/auth0-spa-js';
+import type { Message, OfflineCache } from './types';
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import MessageBubble from "./components/MessageBubble";
-import GetMessagesQuery from "./graphql/GetMessagesQuery";
-import CreateMessageMutation from "./graphql/CreateMessageMutation";
-import useAppUpdate from "./hooks/useAppUpdate";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import MessageBubble from './components/MessageBubble';
+import GetMessagesQuery from './graphql/GetMessagesQuery';
+import CreateMessageMutation from './graphql/CreateMessageMutation';
+import useAppUpdate from './hooks/useAppUpdate';
 
 const POLL_INTERVAL = 2000;
-const CACHE_KEY_USER = "OFFLINE_CACHE_USER";
-const CACHE_KEY_MESSAGES = "OFFLINE_CACHE_MESSAGES";
-const CACHE_KEY_PENDING = "OFFLINE_CACHE_PENDING";
+const CACHE_KEY_USER = 'OFFLINE_CACHE_USER';
+const CACHE_KEY_MESSAGES = 'OFFLINE_CACHE_MESSAGES';
+const CACHE_KEY_PENDING = 'OFFLINE_CACHE_PENDING';
 
 type Props = {
   isOffline: boolean;
@@ -32,10 +32,12 @@ const App = ({ isOffline }: Props) => {
   } = useAuth0();
   const { updateAvailable } = useAppUpdate(isOffline);
 
-  const [internalMessages, setInternalMessages] =
-    useState<Message[] | undefined>(undefined);
-  const [internalPendingMessages, setInternalPendingMessages] =
-    useState<Message[] | undefined>(undefined);
+  const [internalMessages, setInternalMessages] = useState<
+    Message[] | undefined
+  >(undefined);
+  const [internalPendingMessages, setInternalPendingMessages] = useState<
+    Message[] | undefined
+  >(undefined);
 
   const [offlineCache, setOfflineCache] = useState<OfflineCache>({
     user: undefined,
@@ -66,8 +68,8 @@ const App = ({ isOffline }: Props) => {
         text,
         pending: true,
         user: {
-          name: user?.name ?? "",
-          auth0_id: user?.sub ?? "",
+          email: user?.email ?? '',
+          id: user?.sub ?? '',
         },
       },
     ]);
@@ -144,8 +146,8 @@ const App = ({ isOffline }: Props) => {
                 key={message.id}
                 text={message.text}
                 date={new Date(message.created_at)}
-                name={message.user.name}
-                isSelf={message.user.auth0_id === user?.sub}
+                name={message.user.email}
+                isSelf={message.user.id === user?.sub}
                 pending={message.pending}
               />
             )
