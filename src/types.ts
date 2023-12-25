@@ -5,14 +5,14 @@ export type Message = {
   created_at: string;
   text: string;
   user: {
-    auth0_id: string;
-    name: string;
+    id: string;
+    email: string;
   };
   pending?: Boolean;
 };
 
 export type OfflineCache = {
-  user: User | undefined,
-  messages: Message[] | undefined,
-  pendingMessages: Message[] | undefined,
+  user: User | undefined;
+  messages: Message[] | undefined;
+  pendingMessages: Message[] | undefined;
 };

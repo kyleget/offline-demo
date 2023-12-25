@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.21",
-    "@auth0/auth0-react": "^1.5.0",
+    "@auth0/auth0-react": "^2.2.4",
     "@chakra-ui/icons": "^1.0.13",
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
@@ -63,5 +63,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "volta": {
+    "node": "16.19.1"
+  },
+  "engines": {
+    "npm": ">=8.0.0 <9.0.0",
+    "yarn": "1.x"
   }
 }
