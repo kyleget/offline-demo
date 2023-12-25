@@ -28,7 +28,7 @@ const Header = ({ isOffline, updateAvailable }: Props) => {
             {updateAvailable && <AppUpdateButton />}
           </Box>
           <Text textAlign="center" fontSize="2xl" fontWeight="semibold">
-            Messages
+            Offline Demo
           </Text>
           <Box width="40px">
             <Menu />
