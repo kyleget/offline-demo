@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export default gql`
   query GetMessagesQuery {
@@ -7,8 +7,8 @@ export default gql`
       text
       created_at
       user {
-        name
-        auth0_id
+        email
+        id
       }
     }
   }
