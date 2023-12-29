@@ -1,8 +1,8 @@
-import { Box, Container, Flex, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Text } from '@chakra-ui/react';
 
-import DinoIcon from "./DinoIcon";
-import AppUpdateButton from "./AppUpdateButton";
-import Menu from "./Menu";
+import DinoIcon from './DinoIcon';
+import AppUpdateButton from './AppUpdateButton';
+import Menu from './Menu';
 
 type Props = {
   isOffline: boolean;
@@ -28,7 +28,7 @@ const Header = ({ isOffline, updateAvailable }: Props) => {
             {updateAvailable && <AppUpdateButton />}
           </Box>
           <Text textAlign="center" fontSize="2xl" fontWeight="semibold">
-            Offline Demo
+            Offline Demo v2
           </Text>
           <Box width="40px">
             <Menu />
